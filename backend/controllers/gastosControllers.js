@@ -18,7 +18,7 @@ const addGastos = asyncHandler( async (req, res) => {
     }
 
     const gasto = await Gasto.create({
-        descripcion: req.body.descipcion,
+        descripcion: req.body.descripcion,
         importe: req.body.importe
     })
 
