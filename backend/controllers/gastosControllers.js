@@ -7,7 +7,7 @@ const getGastos = asyncHandler( async (req, res) => {
 })
 
 const addGastos = asyncHandler( async (req, res) => {
-    if(!req.body.descipcion){
+    if(!req.body.descripcion){
         res.status(400)
         throw new Error ("Teclea la descripción")
     }
@@ -18,7 +18,7 @@ const addGastos = asyncHandler( async (req, res) => {
     }
 
     const gasto = await Gasto.create({
-        descipcion: req.body.descipcion,
+        descripcion: req.body.descipcion,
         importe: req.body.importe
     })
 
