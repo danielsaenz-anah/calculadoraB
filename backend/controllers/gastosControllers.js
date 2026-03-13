@@ -1,0 +1,50 @@
+const asyncHandler = require('express-async-handler')
+const Gasto = require ('../models/gastosModel')
+
+const getGastos = asyncHandler( async (req, res) => {
+    const gastos = await Gasto.find()
+    res.status(200).json(gastos) 
+})
+
+const addGastos = asyncHandler( async (req, res) => {
+    if(!req.body.descipcion){
+        res.status(400)
+        throw new Error ("Teclea la descripción")
+    }
+
+    if(!req.body.importe){
+        res.status(400)
+        throw new Error ("Teclea la descripción")
+    }
+
+    const gasto = await Gasto.create({
+        descipcion: req.body.descipcion,
+        importe: req.body.importe
+    })
+
+    if (gasto) { 
+        res.status(201).json(gasto)
+    } else {
+        res.status(500) 
+        throw new Error("Hubo un error al crear un gasto ")
+    }
+})
+
+const deleteGastos = asyncHandler( async (req, res) => {
+    const gasto = await Gasto.findByid(req.params.id)
+
+    if (!gasto) { 
+        res.status(404)
+        throw new Error ("No se encontro ese gasto")
+    }
+
+    await Gasto.deleteOne(gasto)
+
+    res.status(200).json({"Mensaje": "Gasto eliminado"})
+})
+
+module.exports = {
+    getGastos,
+    addGastos,
+    deleteGastos
+}
