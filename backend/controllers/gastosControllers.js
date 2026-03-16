@@ -31,7 +31,7 @@ const addGastos = asyncHandler( async (req, res) => {
 })
 
 const deleteGastos = asyncHandler( async (req, res) => {
-    const gasto = await Gasto.findByid(req.params.id)
+    const gasto = await Gasto.findById(req.params.id)
 
     if (!gasto) { 
         res.status(404)
